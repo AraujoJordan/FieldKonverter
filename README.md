@@ -3,8 +3,8 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/AraujoJordan/FieldKonversor/LICENSE)
 [![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonversor.svg)](https://jitpack.io/#AraujoJordan/FieldKonversor/-SNAPSHOT)
 
-Android edit text conversor that can be used for make operations between multiple edit fields. 
-This can be easily used as a currency conversor, link inversor, text replacement or any other type of conversion that you want to do with 2 or more fields.
+FieldKonversor is an android edit text conversor that can be used for make operations between multiple edit fields. 
+This can be easily used as a currency conversor, link inversor, text replacement or any other type of conversion that you want to do with 2 or more fields. The entire project is made in Kotlin and have a small size and footprint.
 
 ## Installation
 
