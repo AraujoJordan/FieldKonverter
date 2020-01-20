@@ -1,8 +1,10 @@
-package com.araujojordan.fieldkonversor
+package com.araujojordan.fieldkonversor.currency
 
 import android.text.InputType
 import android.text.method.DigitsKeyListener
+import android.util.Log
 import android.widget.EditText
+import com.araujojordan.fieldkonversor.FieldKonversor
 
 /**
  * Designed and developed by Jordan Lira (@AraujoJordan)
@@ -21,19 +23,19 @@ import android.widget.EditText
  *
  */
 class CurrencyKonversor(
-    vararg fields: EditText
+    vararg val fields: CurrencyField
 ) : FieldKonversor(
-    *fields,
-    callback = { from: EditText, to: EditText -> "" }
+    *(ArrayList<EditText?>().apply {
+        fields.forEach { add(it.editField) }
+    }.toTypedArray()),
+    callback = { from: EditText?, to: EditText? -> "" }
 ) {
-
     var decimalPlaces: Int = 2
-//    var maximumAmount: Double? = null
 
-    var localCallback = { from: EditText, to: EditText ->
+    var localCallback = { from: EditText?, to: EditText? ->
         try {
-            var input = from.text.toString()
-            val cursorPosition = from.selectionStart
+            var input = from?.text.toString()
+            val cursorPosition = from?.selectionStart?:0
 
             var indexOfFirstDot = input.indexOf('.')
             var indexOfLastDot = input.lastIndexOf('.')
@@ -53,31 +55,31 @@ class CurrencyKonversor(
                 input = input.substring(0, indexOfFirstDot + (decimalPlaces + 1))
 
 
-            var amount = input.toDouble()
+            val fromField =  fields.firstOrNull { it.editField == from }
+            val toField =  fields.firstOrNull { it.editField == to }
 
             //limit maximum amount
-//            maximumAmount?.let {
-//                if (amount > it) {
-//                    input = (amount - (it - amount)).toString()
-//                    amount = input.toDouble()
-//                }
-//            }
+            var amount : Double = input.toDouble()
+            fromField?.maximumAmount?.let {
+                if (amount > it) amount = it
+            }
 
-            from.setText(input)
-            from.setSelection(if (cursorPosition > input.length) input.length else cursorPosition)
+            from?.setText(amount.toString())
+            from?.setSelection(if (cursorPosition > amount.toString().length) amount.toString().length else cursorPosition)
 
-            "%.${decimalPlaces}f".format(amount * (to.tag as Double))
+            val exchangeRate = toField?.currencyAmount?:0.0
+
+            "%.${decimalPlaces}f".format(amount * exchangeRate)
         } catch (err: Exception) {
-            from.text.toString()
+            from?.text.toString()
         }
     }
 
     init {
         fields.forEach {
-            it.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-            it.keyListener = DigitsKeyListener.getInstance("0123456789.")
+            it.editField?.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+            it.editField?.keyListener = DigitsKeyListener.getInstance("0123456789.")
         }
         callback = localCallback
     }
 }
-
