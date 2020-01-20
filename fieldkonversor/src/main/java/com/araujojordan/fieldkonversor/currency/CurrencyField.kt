@@ -19,7 +19,7 @@ import android.widget.EditText
  *
  */
 data class CurrencyField(
-    val editField : EditText? = null,
-    val currencyAmount : Double = 1.0,
-    val maximumAmount : Double? = null
+    var editField : EditText? = null,
+    var currencyAmount : Double = 1.0,
+    var maximumAmount : Double? = null
 )
