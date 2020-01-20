@@ -22,7 +22,7 @@ import android.widget.EditText
  */
 open class FieldKonversor(private vararg val fields: EditText?,var callback: (EditText?, EditText?) -> String) {
 
-//    var callback :(EditText,EditText,String) -> String = {_,_,content -> content}
+    var fieldChangeCallback : (EditText,String) -> Unit = { _, _ ->  }
 
     private val textChangeListener = object : TextWatcher {
         override fun afterTextChanged(content: Editable?) {
@@ -41,6 +41,8 @@ open class FieldKonversor(private vararg val fields: EditText?,var callback: (Ed
     }
 
 
+
+
     private fun fieldHasTextToChange(
         fieldFromChange: EditText?,
         fieldToChange: EditText
@@ -49,6 +51,8 @@ open class FieldKonversor(private vararg val fields: EditText?,var callback: (Ed
             fieldToChange.removeTextChangedListener(textChangeListener)
             fieldFromChange.removeTextChangedListener(textChangeListener)
             fieldToChange.setText(callback(fieldFromChange, fieldToChange))
+            fieldChangeCallback(fieldFromChange,fieldFromChange.text.toString())
+            fieldChangeCallback(fieldToChange,fieldToChange.text.toString())
             fieldToChange.addTextChangedListener(textChangeListener)
             fieldFromChange.addTextChangedListener(textChangeListener)
         }
