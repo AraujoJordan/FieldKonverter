@@ -12,18 +12,17 @@ This can be easily used as a currency conversor, link inversor, text replacement
 
 ```gradle
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 #### Step 2. Add the dependency to your app build file 
 
 ```gradle
 dependencies {
-        implementation 'com.github.AraujoJordan:FieldKonversor:-SNAPSHOT'
+	implementation 'com.github.AraujoJordan:FieldKonversor:-SNAPSHOT'
 }
 ```
 
