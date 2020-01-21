@@ -1,4 +1,4 @@
-package com.araujojordan.fieldkonversor.currency
+package com.araujojordan.fieldkonverter.currency
 
 import android.widget.EditText
 

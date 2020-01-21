@@ -1,4 +1,4 @@
-package com.araujojordan.fieldkonversor
+package com.araujojordan.fieldkonverter
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,7 +20,7 @@ import android.widget.EditText
  * limitations under the License.
  *
  */
-open class FieldKonversor(private vararg val fields: EditText?,var callback: (EditText?, EditText?) -> String) {
+open class FieldKonverter(private vararg val fields: EditText?,var callback: (EditText?, EditText?) -> String) {
 
     var fieldChangeCallback : (EditText,String) -> Unit = { _, _ ->  }
 

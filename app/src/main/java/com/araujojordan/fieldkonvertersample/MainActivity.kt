@@ -1,9 +1,10 @@
-package com.araujojordan.fieldkonversorsample
+package com.araujojordan.fieldkonvertersample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.araujojordan.fieldkonversor.currency.CurrencyField
-import com.araujojordan.fieldkonversor.currency.CurrencyKonversor
+import com.araujojordan.fieldkonverter.FieldKonverter
+import com.araujojordan.fieldkonverter.currency.CurrencyField
+import com.araujojordan.fieldkonverter.currency.CurrencyKonverter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -29,10 +30,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Simple example
-        CurrencyKonversor(
-            CurrencyField(editText,0.5,25000.00),
-            CurrencyField(editText2,2.0,50000.00)
-        )
+        // link inverter
+        FieldKonverter(editText,editText2) { from, to ->
+            from?.text.toString().reversed()
+        }
+
+//        //Simple example
+//        CurrencyKonverter(
+//            CurrencyField(editText,0.5,25000.00),
+//            CurrencyField(editText2,2.0,50000.00)
+//        ).apply {
+//            decimalPlaces = 3
+//        }
     }
 }

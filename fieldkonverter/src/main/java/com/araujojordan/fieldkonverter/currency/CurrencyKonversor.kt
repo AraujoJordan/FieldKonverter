@@ -1,10 +1,10 @@
-package com.araujojordan.fieldkonversor.currency
+package com.araujojordan.fieldkonverter.currency
 
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.Log
 import android.widget.EditText
-import com.araujojordan.fieldkonversor.FieldKonversor
+import com.araujojordan.fieldkonverter.FieldKonverter
 
 /**
  * Designed and developed by Jordan Lira (@AraujoJordan)
@@ -22,9 +22,9 @@ import com.araujojordan.fieldkonversor.FieldKonversor
  * limitations under the License.
  *
  */
-class CurrencyKonversor(
+class CurrencyKonverter(
     vararg val fields: CurrencyField
-) : FieldKonversor(
+) : FieldKonverter(
     *(ArrayList<EditText?>().apply {
         fields.forEach { add(it.editField) }
     }.toTypedArray()),

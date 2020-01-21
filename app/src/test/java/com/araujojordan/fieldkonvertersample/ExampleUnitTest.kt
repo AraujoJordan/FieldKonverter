@@ -1,4 +1,4 @@
-package com.araujojordan.fieldkonversorsample
+package com.araujojordan.fieldkonvertersample
 
 import org.junit.Test
 
