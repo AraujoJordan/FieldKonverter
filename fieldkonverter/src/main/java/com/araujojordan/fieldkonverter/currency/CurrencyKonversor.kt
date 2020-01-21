@@ -28,7 +28,7 @@ class CurrencyKonverter(
     *(ArrayList<EditText?>().apply {
         fields.forEach { add(it.editField) }
     }.toTypedArray()),
-    callback = { from: EditText?, to: EditText? -> "" }
+    callback = { _ , _ -> "" }
 ) {
     var decimalPlaces: Int = 2
 

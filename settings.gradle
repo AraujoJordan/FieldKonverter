@@ -1,2 +1,2 @@
-include ':app', ':fieldkonversor'
-rootProject.name='FieldKonversorSample'
+include ':app', ':fieldkonverter'
+rootProject.name='FieldKonverterSample'

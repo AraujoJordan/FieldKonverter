@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FieldKonversorSample.iml" filepath="$PROJECT_DIR$/FieldKonversorSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FieldKonverterSample.iml" filepath="$PROJECT_DIR$/FieldKonverterSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fieldkonversor/fieldkonversor.iml" filepath="$PROJECT_DIR$/fieldkonversor/fieldkonversor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fieldkonverter/fieldkonverter.iml" filepath="$PROJECT_DIR$/fieldkonverter/fieldkonverter.iml" />
     </modules>
   </component>
 </project>

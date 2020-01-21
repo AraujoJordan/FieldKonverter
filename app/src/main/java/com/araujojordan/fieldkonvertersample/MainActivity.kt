@@ -31,8 +31,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // link inverter
-        FieldKonverter(editText,editText2) { from, to ->
+        FieldKonverter(editText,editText2) { from, _ ->
             from?.text.toString().reversed()
+            //test
+
         }
 
 //        //Simple example
