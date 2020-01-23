@@ -31,18 +31,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // link inverter
-        FieldKonverter(editText,editText2) { from, _ ->
-            from?.text.toString().reversed()
-            //test
-
-        }
+//        FieldKonverter(editText,editText2) { from, _ ->
+//            from?.text.toString().reversed()
+//            //test
+//
+//        }
 
 //        //Simple example
-//        CurrencyKonverter(
-//            CurrencyField(editText,0.5,25000.00),
-//            CurrencyField(editText2,2.0,50000.00)
-//        ).apply {
-//            decimalPlaces = 3
-//        }
+        CurrencyKonverter(
+            CurrencyField(editText,0.5,25000.00),
+            CurrencyField(editText2,2.0,50000.00)
+        ).apply {
+            decimalPlaces = 2
+        }
     }
 }

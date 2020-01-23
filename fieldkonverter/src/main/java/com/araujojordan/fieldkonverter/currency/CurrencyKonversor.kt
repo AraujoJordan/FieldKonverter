@@ -30,14 +30,14 @@ class CurrencyKonverter(
     *(ArrayList<EditText?>().apply {
         fields.forEach { add(it.editField) }
     }.toTypedArray()),
-    callback = { _ , _ -> "" }
+    callback = { _, _ -> "" }
 ) {
     var decimalPlaces: Int = 2
 
     var localCallback = { from: EditText?, to: EditText? ->
         try {
             var input = from?.text.toString()
-            val cursorPosition = from?.selectionStart?:0
+            val cursorPosition = from?.selectionStart ?: 0
 
             var indexOfFirstDot = input.indexOf('.')
             var indexOfLastDot = input.lastIndexOf('.')
@@ -57,29 +57,31 @@ class CurrencyKonverter(
                 input = input.substring(0, indexOfFirstDot + (decimalPlaces + 1))
 
 
-            val fromField =  fields.firstOrNull { it.editField == from }
-            val toField =  fields.firstOrNull { it.editField == to }
+            val fromField = fields.firstOrNull { it.editField == from }
+            val toField = fields.firstOrNull { it.editField == to }
 
             //limit maximum amount
-            var amount : Double = input.toDouble()
+            var amount: Double = input.toDouble()
             fromField?.maximumAmount?.let {
                 if (amount > it) amount = it
             }
 
-            from?.setText("%.${decimalPlaces}f".format(Locale.US,amount.toString()))
+            from?.setText(String.format(Locale.US, "%.${decimalPlaces}f", amount))
             from?.setSelection(if (cursorPosition > from.text.toString().length) from.text.toString().length else cursorPosition)
 
-            val exchangeRate = toField?.currencyAmount?:0.0
+            val exchangeRate = toField?.currencyAmount ?: 0.0
 
-            "%.${decimalPlaces}f".format(Locale.US,amount * exchangeRate)
+            String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
         } catch (err: Exception) {
+            Log.e("CurrencyKonverter", err.message)
             from?.text.toString()
         }
     }
 
     init {
         fields.forEach {
-            it.editField?.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+            it.editField?.inputType =
+                InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
             it.editField?.keyListener = DigitsKeyListener.getInstance("0123456789.")
         }
         callback = localCallback
