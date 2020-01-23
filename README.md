@@ -1,10 +1,10 @@
 # FieldKonverter
-[![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonversor.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonversor)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/AraujoJordan/FieldKonversor/LICENSE)
-[![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonversor.svg)](https://jitpack.io/#AraujoJordan/FieldKonversor/-SNAPSHOT)
+[![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonverter.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonverter)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/AraujoJordan/FieldKonverter/LICENSE)
+[![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonverter.svg)](https://jitpack.io/#AraujoJordan/FieldKonverter/0.0.1)
 
-FieldKonverter is an android edit text conversor that can be used for make operations between multiple edit fields. 
-This can be easily used as a currency conversor, link inversor, text replacement or any other type of conversion that you want to do with 2 or more fields. The entire project is made in Kotlin and have a small size and footprint.
+FieldKonverter is an android edit text converter that can be used for make operations between multiple edit fields. 
+This can be easily used as a currency converter, link inverter, text replacement or any other type of conversion that you want to do with 2 or more fields. The entire project is made in Kotlin and have a small size and footprint.
 
 ## Usage
 
