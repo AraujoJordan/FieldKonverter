@@ -5,6 +5,8 @@ import android.text.method.DigitsKeyListener
 import android.util.Log
 import android.widget.EditText
 import com.araujojordan.fieldkonverter.FieldKonverter
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Designed and developed by Jordan Lira (@AraujoJordan)
@@ -64,12 +66,12 @@ class CurrencyKonverter(
                 if (amount > it) amount = it
             }
 
-            from?.setText(amount.toString())
-            from?.setSelection(if (cursorPosition > amount.toString().length) amount.toString().length else cursorPosition)
+            from?.setText("%.${decimalPlaces}f".format(Locale.US,amount.toString()))
+            from?.setSelection(if (cursorPosition > from.text.toString().length) from.text.toString().length else cursorPosition)
 
             val exchangeRate = toField?.currencyAmount?:0.0
 
-            "%.${decimalPlaces}f".format(amount * exchangeRate)
+            "%.${decimalPlaces}f".format(Locale.US,amount * exchangeRate)
         } catch (err: Exception) {
             from?.text.toString()
         }
