@@ -1,10 +1,19 @@
 # FieldKonverter
 [![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonverter.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonverter)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/AraujoJordan/FieldKonverter/LICENSE)
-[![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonverter.svg)](https://jitpack.io/#AraujoJordan/FieldKonverter/0.0.2)
+[![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonverter.svg)](https://jitpack.io/#AraujoJordan/FieldKonverter/0.0.3)
 
 FieldKonverter is an android edit text converter that can be used for make operations between multiple edit fields. 
 This can be easily used as a currency converter, link inverter, text replacement or any other type of conversion that you want to do with 2 or more fields. The entire project is made in Kotlin and have a small size and footprint.
+
+## Why use FieldKonverter?
+
+When you are doing a conversion between two or multiple edit fields you will face this problem: How to prevent the contents between the fields enter in a conversion loop? And what about multiple edit fields?
+
+![](docs/probExample.png)
+![](docs/probExampleMultiples.png)
+
+You could implement from scratch or use this small library that will make your like much more easier. It can be used with kotlin lambdas to make a conversion between 2 fields with only 3 lines of code.    
 
 ## Usage
 
@@ -17,19 +26,47 @@ FieldKonverter(editText,editText2) { from, to ->
 }
 ```
 
+### Example of multiple fields conversion
+
+```kotlin
+// translator (I use 3 in this example, but it could be N fields)
+FieldKonverter(englishField,portugueseField,spanishField) { from, to ->
+    when(from.id) {
+        englishField.id -> {
+            when(to.id) {
+                portugueseField.id -> englishToPortuguese(from?.text) //return a string
+                spanishField.id -> englishToSpanish(from?.text) //return a string
+            }
+        }
+        portugueseField.id -> {
+                when(to.id) {
+                    englishField.id -> portugueseToEnglish(from?.text) //return a string
+                    spanishField.id -> portugueseToSpanish(from?.text) //return a string
+                }
+        }
+        spanishField.id -> {
+             when(to.id) {
+                englishField.id -> spanishToEnglish(from?.text) //return a string
+                portugueseField.id -> spanishToPortuguese(from?.text) //return a string
+            }
+        }
+    }
+}
+```
+
+
 ### For currency conversions
  
- You can use the `CurrencyKonverter` constructor to convert between 2 or many fields
-
+ You can use the `CurrencyKonverter` constructor to convert between two fields
  
 ```kotlin
 CurrencyKonverter(
-    CurrencyField(editText1, 0.5, 25000.00),
-    CurrencyField(editText2, 2.0, 50000.00)
+    CurrencyField(editText1, 0.5, 25000.00), //it will convert any content to half of its value
+    CurrencyField(editText2, 2.0, 50000.00) //it will convert any content to double of its value
 )
 ```
 
-The third field of the CurrencyField is actually optional, so you can use something like: `CurrencyField(editText1, 2.0)`
+The third field of the CurrencyField is optional, so you can use something like: `CurrencyField(editText1, 2.0)`
 You can even change the place decimal precision using the `CurrencyKonverter` variable `decimalPlaces` integer any time.
 
 ## Installation
@@ -48,7 +85,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.AraujoJordan:FieldKonverter:-SNAPSHOT'
+	implementation 'com.github.AraujoJordan:FieldKonverter:0.0.3'
 }
 ```
 
