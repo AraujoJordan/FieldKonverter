@@ -23,6 +23,9 @@ import android.widget.EditText
 open class FieldKonverter(private vararg val fields: EditText?,var callback: (EditText?, EditText?) -> String) {
 
     var fieldChangeCallback : (EditText,String) -> Unit = { _, _ ->  }
+    var isRemoval = false
+    var valueBefore: String = ""
+    var cursorPosition: Int = 0
 
     private val textChangeListener = object : TextWatcher {
         override fun afterTextChanged(content: Editable?) {
@@ -32,7 +35,12 @@ open class FieldKonverter(private vararg val fields: EditText?,var callback: (Ed
                     fieldToChange?.let {fieldHasTextToChange(fieldFromChange, it)}
             }
         }
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            isRemoval = after < 1
+            valueBefore = s.toString()
+            cursorPosition = start
+        }
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     }
 

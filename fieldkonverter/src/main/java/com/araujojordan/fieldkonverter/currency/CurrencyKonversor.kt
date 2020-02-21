@@ -22,6 +22,7 @@ import kotlin.collections.ArrayList
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * limitations under the License.
  *
  */
 class CurrencyKonverter(
@@ -36,6 +37,7 @@ class CurrencyKonverter(
 
     var localCallback = { from: EditText?, to: EditText? ->
         try {
+
             var input = from?.text.toString()
             val cursorPosition = from?.selectionStart ?: 0
 
@@ -52,26 +54,34 @@ class CurrencyKonverter(
             //remove strange characters
             input = input.replace(("[^\\d.]").toRegex(), "")
 
-            //limit number of decimal places
-            if (indexOfFirstDot > -1 && indexOfFirstDot + (decimalPlaces + 1) <= input.length)
-                input = input.substring(0, indexOfFirstDot + (decimalPlaces + 1))
+            //fix dot removal
+            if (isRemoval && !input.contains(".") && valueBefore.contains(".")) {
+                from?.setText(valueBefore)
+                from?.setSelection(cursorPosition)
+                to?.text.toString()
+            } else {
+
+                //limit number of decimal places
+                if (indexOfFirstDot > -1 && indexOfFirstDot + (decimalPlaces + 1) <= input.length)
+                    input = input.substring(0, indexOfFirstDot + (decimalPlaces + 1))
 
 
-            val fromField = fields.firstOrNull { it.editField == from }
-            val toField = fields.firstOrNull { it.editField == to }
+                val fromField = fields.firstOrNull { it.editField == from }
+                val toField = fields.firstOrNull { it.editField == to }
 
-            //limit maximum amount
-            var amount: Double = input.toDouble()
-            fromField?.maximumAmount?.let {
-                if (amount > it) amount = it
+                //limit maximum amount
+                var amount: Double = input.toDouble()
+                fromField?.maximumAmount?.let {
+                    if (amount > it) amount = it
+                }
+
+                from?.setText(String.format(Locale.US, "%.${decimalPlaces}f", amount))
+                from?.setSelection(if (cursorPosition > from.text.toString().length) from.text.toString().length else cursorPosition)
+
+                val exchangeRate = toField?.currencyAmount ?: 0.0
+
+                String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
             }
-
-            from?.setText(String.format(Locale.US, "%.${decimalPlaces}f", amount))
-            from?.setSelection(if (cursorPosition > from.text.toString().length) from.text.toString().length else cursorPosition)
-
-            val exchangeRate = toField?.currencyAmount ?: 0.0
-
-            String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
         } catch (err: Exception) {
             Log.e("CurrencyKonverter", err.message)
             from?.text.toString()

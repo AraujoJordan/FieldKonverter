@@ -6,6 +6,8 @@
 FieldKonverter is an android edit text converter that can be used for make operations between multiple edit fields. 
 This can be easily used as a currency converter, link inverter, text replacement or any other type of conversion that you want to do with 2 or more fields. The entire project is made in Kotlin and have a small size and footprint.
 
+![](docs/example-video.gif)
+
 ## Why use FieldKonverter?
 
 When you are doing a conversion between two or multiple edit fields you will face this problem: How to prevent the contents between the fields enter in a conversion loop? And what about multiple edit fields?

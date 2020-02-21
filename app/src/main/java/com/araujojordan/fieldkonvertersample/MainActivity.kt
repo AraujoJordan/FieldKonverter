@@ -1,8 +1,7 @@
 package com.araujojordan.fieldkonvertersample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.araujojordan.fieldkonverter.FieldKonverter
+import androidx.appcompat.app.AppCompatActivity
 import com.araujojordan.fieldkonverter.currency.CurrencyField
 import com.araujojordan.fieldkonverter.currency.CurrencyKonverter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
 //        //Simple example
         CurrencyKonverter(
-            CurrencyField(editText,0.5,25000.00),
-            CurrencyField(editText2,2.0,50000.00)
+            CurrencyField(editText, 0.5),
+            CurrencyField(editText2, 2.0)
         ).apply {
             decimalPlaces = 2
         }
