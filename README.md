@@ -87,7 +87,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	implementation 'com.github.AraujoJordan:FieldKonverter:0.0.3'
+	implementation 'com.github.AraujoJordan:FieldKonverter:0.0.4'
 }
 ```
 
