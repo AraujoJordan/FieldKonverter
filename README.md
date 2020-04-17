@@ -1,4 +1,5 @@
 # FieldKonverter
+**An easy Android Edit Text conversor that prevent loops made with Kotlin**
 [![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonverter.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonverter)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/AraujoJordan/FieldKonverter/LICENSE)
 [![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonverter.svg)](https://jitpack.io/#AraujoJordan/FieldKonverter/0.0.4)
@@ -8,7 +9,7 @@ This can be easily used as a currency converter, link inverter, text replacement
 
 ![](docs/example-video.gif)
 
-## Why use FieldKonverter?
+## 🚀 Why use FieldKonverter?
 
 When you are doing a conversion between two or multiple edit fields you will face this problem: How to prevent the contents between the fields enter in a conversion loop? And what about multiple edit fields?
 
@@ -17,7 +18,7 @@ When you are doing a conversion between two or multiple edit fields you will fac
 
 You could implement from scratch or use this small library that will make your like much more easier. It can be used with kotlin lambdas to make a conversion between 2 fields with only 3 lines of code.    
 
-## Usage
+## 📖 Usage
 
 ### For any type of conversion
 
@@ -71,10 +72,11 @@ CurrencyKonverter(
 The third field of the CurrencyField is optional, so you can use something like: `CurrencyField(editText1, 2.0)`
 You can even change the place decimal precision using the `CurrencyKonverter` variable `decimalPlaces` integer any time.
 
-## Installation
+## 📦 Installation
 
 #### Step 1. Add the JitPack repository to your project build file 
 
++ build.gradle (Project: YourProjectName)
 ```gradle
 allprojects {
 	repositories {
@@ -84,14 +86,14 @@ allprojects {
 ```
 
 #### Step 2. Add the dependency to your app build file 
-
++ build.gradle (Module: app) [![Jitpack Enable](https://jitpack.io/v/AraujoJordan/ExcuseMe.svg)](https://jitpack.io/AraujoJordan/FieldKonverter/)
 ```gradle
 dependencies {
-	implementation 'com.github.AraujoJordan:FieldKonverter:0.0.4'
+	implementation 'com.github.AraujoJordan:FieldKonverter:X.X.X'
 }
 ```
 
-## License
+## 📄 License
 ```
 MIT License
 
