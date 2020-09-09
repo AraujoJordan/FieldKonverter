@@ -30,12 +30,13 @@ import kotlin.collections.ArrayList
  *
  */
 class CurrencyKonverter(
-    vararg val fields: CurrencyField
+    vararg val fields: CurrencyField,
+    afterChange: ((EditText?, EditText?) -> String)? = null
 ) : FieldKonverter(
     *(ArrayList<EditText?>().apply {
         fields.forEach { add(it.editField) }
     }.toTypedArray()),
-    callback = { _, _ -> "" }
+    callback = null
 ) {
     var decimalPlaces: Int = 2
 
@@ -84,7 +85,9 @@ class CurrencyKonverter(
 
                 val exchangeRate = toField?.currencyAmount ?: 0.0
 
-                String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
+                val text = String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
+                afterChange?.invoke(from, to)
+                text
             }
         } catch (err: Exception) {
             Log.e("CurrencyKonverter", err.message)

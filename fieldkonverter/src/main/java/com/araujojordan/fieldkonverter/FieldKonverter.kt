@@ -25,16 +25,19 @@ import android.widget.EditText
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-open class FieldKonverter(private vararg val fields: EditText?,var callback: (EditText?, EditText?) -> String) {
+open class FieldKonverter(
+    private vararg val fields: EditText?,
+    var callback: ((EditText?, EditText?) -> String)?
+) {
 
-    var fieldChangeCallback : (EditText,String) -> Unit = { _, _ ->  }
+    var fieldChangeCallback: (EditText, String) -> Unit = { _, _ -> }
     var isRemoval = false
     var valueBefore: String = ""
     var cursorPosition: Int = 0
 
     private val textChangeListener = object : TextWatcher {
         override fun afterTextChanged(content: Editable?) {
-            val fieldFromChange = fields.firstOrNull { it?.isFocused==true }
+            val fieldFromChange = fields.firstOrNull { it?.isFocused == true }
             fields.forEach { fieldToChange ->
                 if (fieldFromChange != fieldToChange)
                     fieldToChange?.let {fieldHasTextToChange(fieldFromChange, it)}
@@ -63,7 +66,7 @@ open class FieldKonverter(private vararg val fields: EditText?,var callback: (Ed
         fieldFromChange?.let {
             fieldToChange.removeTextChangedListener(textChangeListener)
             fieldFromChange.removeTextChangedListener(textChangeListener)
-            fieldToChange.setText(callback(fieldFromChange, fieldToChange))
+            callback?.let { fieldToChange.setText(it(fieldFromChange, fieldToChange)) }
             fieldChangeCallback(fieldFromChange,fieldFromChange.text.toString())
             fieldChangeCallback(fieldToChange,fieldToChange.text.toString())
             fieldToChange.addTextChangedListener(textChangeListener)
