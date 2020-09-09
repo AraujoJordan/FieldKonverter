@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8396de7bdd2d48abaf17f17ead8ebe75)](https://app.codacy.com/manual/AraujoJordan/FieldKonverter?utm_source=github.com&utm_medium=referral&utm_content=AraujoJordan/FieldKonverter&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonverter.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonverter)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/AraujoJordan/FieldKonverter/LICENSE)
-[![Jitpack Enable](https://jitpack.io/v/AraujoJordan/ExcuseMe.svg)](https://jitpack.io/AraujoJordan/FieldKonverter/)
+[![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonverter.svg)](https://jitpack.io/AraujoJordan/FieldKonverter/)
 
 FieldKonverter is an android edit text converter that can be used for make operations between multiple edit fields. 
 This can be easily used as a currency converter, link inverter, text replacement or any other type of conversion that you want to do with 2 or more fields. The entire project is made in Kotlin and have a small size and footprint.
@@ -88,7 +88,7 @@ allprojects {
 ```
 
 #### Step 2. Add the dependency to your app build file 
-+ build.gradle (Module: app) [![Jitpack Enable](https://jitpack.io/v/AraujoJordan/ExcuseMe.svg)](https://jitpack.io/AraujoJordan/FieldKonverter/)
++ build.gradle (Module: app) [![Jitpack Enable](https://jitpack.io/v/AraujoJordan/FieldKonverter.svg)](https://jitpack.io/AraujoJordan/FieldKonverter/)
 ```gradle
 dependencies {
 	implementation 'com.github.AraujoJordan:FieldKonverter:X.X.X'
