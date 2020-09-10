@@ -31,7 +31,7 @@ import kotlin.collections.ArrayList
  */
 class CurrencyKonverter(
     vararg val fields: CurrencyField,
-    afterChange: ((EditText?, EditText?) -> String)? = null
+    val afterChange: ((EditText?, EditText?) -> Unit)? = null
 ) : FieldKonverter(
     *(ArrayList<EditText?>().apply {
         fields.forEach { add(it.editField) }
@@ -42,7 +42,6 @@ class CurrencyKonverter(
 
     var localCallback = { from: EditText?, to: EditText? ->
         try {
-
             var input = from?.text.toString()
             val cursorPosition = from?.selectionStart ?: 0
 
@@ -85,13 +84,27 @@ class CurrencyKonverter(
 
                 val exchangeRate = toField?.currencyAmount ?: 0.0
 
-                val text = String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
-                afterChange?.invoke(from, to)
-                text
+                String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
             }
         } catch (err: Exception) {
             Log.e("CurrencyKonverter", err.message)
             from?.text.toString()
+        }
+    }
+
+    override fun fieldHasTextToChange(
+        fieldFromChange: EditText?,
+        fieldToChange: EditText
+    ) {
+        fieldFromChange?.let {
+            fieldToChange.removeTextChangedListener(textChangeListener)
+            fieldFromChange.removeTextChangedListener(textChangeListener)
+            callback?.let { fieldToChange.setText(it(fieldFromChange, fieldToChange)) }
+            afterChange?.invoke(fieldFromChange, fieldToChange)
+            fieldChangeCallback(fieldFromChange,fieldFromChange.text.toString())
+            fieldChangeCallback(fieldToChange,fieldToChange.text.toString())
+            fieldToChange.addTextChangedListener(textChangeListener)
+            fieldFromChange.addTextChangedListener(textChangeListener)
         }
     }
 

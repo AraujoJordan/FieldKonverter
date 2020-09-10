@@ -35,7 +35,7 @@ open class FieldKonverter(
     var valueBefore: String = ""
     var cursorPosition: Int = 0
 
-    private val textChangeListener = object : TextWatcher {
+    protected val textChangeListener = object : TextWatcher {
         override fun afterTextChanged(content: Editable?) {
             val fieldFromChange = fields.firstOrNull { it?.isFocused == true }
             fields.forEach { fieldToChange ->
@@ -56,10 +56,7 @@ open class FieldKonverter(
         fields.forEach { it?.addTextChangedListener(textChangeListener) }
     }
 
-
-
-
-    private fun fieldHasTextToChange(
+    protected open fun fieldHasTextToChange(
         fieldFromChange: EditText?,
         fieldToChange: EditText
     ) {

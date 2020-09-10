@@ -39,7 +39,10 @@ class MainActivity : AppCompatActivity() {
 //        //Simple example
         CurrencyKonverter(
             CurrencyField(editText, 0.5),
-            CurrencyField(editText2, 2.0)
+            CurrencyField(editText2, 2.0),
+            afterChange = { from, to ->
+                from?.setText("1234")
+            }
         ).apply {
             decimalPlaces = 2
         }
