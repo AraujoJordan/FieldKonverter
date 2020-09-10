@@ -87,7 +87,7 @@ class CurrencyKonverter(
                 String.format(Locale.US, "%.${decimalPlaces}f", (amount * exchangeRate))
             }
         } catch (err: Exception) {
-            Log.e("CurrencyKonverter", err.message)
+            Log.e("CurrencyKonverter", err.message.toString())
             from?.text.toString()
         }
     }
