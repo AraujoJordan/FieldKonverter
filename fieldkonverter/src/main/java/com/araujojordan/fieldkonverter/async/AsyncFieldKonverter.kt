@@ -1,8 +1,9 @@
-package com.araujojordan.fieldkonverter
+package com.araujojordan.fieldkonverter.async
 
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import kotlinx.coroutines.*
 
 /**
  * Designed and developed by Jordan Lira (@araujojordan)
@@ -25,22 +26,27 @@ import android.widget.EditText
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-open class FieldKonverter(
+open class AsyncFieldKonverter(
     private vararg var fields: EditText?,
-    var callback: ((EditText?, EditText?) -> String)?
+    private val debounceTimeout: Long = 1000L,
+    private var callback: SuspendCallback?
 ) {
 
+    var debounceJob: Job? = null
     var fieldChangeCallback: ((EditText, String) -> Unit)? = { _, _ -> }
     var isRemoval = false
     var valueBefore: String = ""
     var cursorPosition: Int = 0
 
-    protected val textChangeListener = object : TextWatcher {
+    private var textChangeListener = object : TextWatcher {
         override fun afterTextChanged(content: Editable?) {
-            val fieldFromChange = fields.firstOrNull { it?.isFocused == true }
-            fields.forEach { fieldToChange ->
-                if (fieldFromChange != fieldToChange)
-                    fieldToChange?.let { fieldHasTextToChange(fieldFromChange, it) }
+            if (debounceJob != null && debounceJob?.isCompleted == false) {
+                debounceJob?.cancel()
+                debounceJob = null
+            }
+            debounceJob = GlobalScope.launch {
+                delay(debounceTimeout)
+                runConverter()
             }
         }
 
@@ -54,23 +60,33 @@ open class FieldKonverter(
     }
 
     fun detach() {
-        fieldChangeCallback = null
+        debounceJob?.cancel()
+        debounceJob = null
         fields.forEach { it?.removeTextChangedListener(textChangeListener) }
+        fieldChangeCallback = null
         fields = emptyArray()
+    }
+
+    suspend fun runConverter() {
+        val fieldFromChange = fields.firstOrNull { it?.isFocused == true }
+        fields.forEach { fieldToChange ->
+            if (fieldFromChange != fieldToChange)
+                fieldToChange?.let { fieldHasTextToChange(fieldFromChange, it) }
+        }
     }
 
     init {
         fields.forEach { it?.addTextChangedListener(textChangeListener) }
     }
 
-    protected open fun fieldHasTextToChange(
+    protected open suspend fun fieldHasTextToChange(
         fieldFromChange: EditText?,
         fieldToChange: EditText
-    ) {
+    ) = withContext(Dispatchers.Main) {
         fieldFromChange?.let {
             fieldToChange.removeTextChangedListener(textChangeListener)
             fieldFromChange.removeTextChangedListener(textChangeListener)
-            callback?.let { fieldToChange.setText(it(fieldFromChange, fieldToChange)) }
+            fieldToChange.setText(callback?.callback(fieldFromChange, fieldToChange))
             fieldChangeCallback?.invoke(fieldFromChange, fieldFromChange.text.toString())
             fieldChangeCallback?.invoke(fieldToChange, fieldToChange.text.toString())
             fieldToChange.addTextChangedListener(textChangeListener)
@@ -78,5 +94,7 @@ open class FieldKonverter(
         }
     }
 
-
+    interface SuspendCallback {
+        suspend fun callback(from: EditText?, to: EditText?): String
+    }
 }
