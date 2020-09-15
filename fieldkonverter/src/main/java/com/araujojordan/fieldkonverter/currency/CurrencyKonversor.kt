@@ -101,8 +101,8 @@ class CurrencyKonverter(
             fieldFromChange.removeTextChangedListener(textChangeListener)
             callback?.let { fieldToChange.setText(it(fieldFromChange, fieldToChange)) }
             afterChange?.invoke(fieldFromChange, fieldToChange)
-            fieldChangeCallback(fieldFromChange,fieldFromChange.text.toString())
-            fieldChangeCallback(fieldToChange,fieldToChange.text.toString())
+            fieldChangeCallback?.invoke(fieldFromChange, fieldFromChange.text.toString())
+            fieldChangeCallback?.invoke(fieldToChange, fieldToChange.text.toString())
             fieldToChange.addTextChangedListener(textChangeListener)
             fieldFromChange.addTextChangedListener(textChangeListener)
         }
