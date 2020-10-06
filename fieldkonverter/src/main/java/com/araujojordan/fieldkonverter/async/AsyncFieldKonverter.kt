@@ -29,6 +29,7 @@ import kotlinx.coroutines.*
 open class AsyncFieldKonverter(
     private vararg var fields: EditText?,
     private val debounceTimeout: Long = 1000L,
+    private var beforeDebounce: ((EditText?) -> Unit)? = { },
     private var callback: SuspendCallback?
 ) {
 
@@ -45,6 +46,7 @@ open class AsyncFieldKonverter(
                 debounceJob = null
             }
             debounceJob = GlobalScope.launch {
+                beforeDebounce?.invoke(fields.firstOrNull { it?.isFocused == true })
                 delay(debounceTimeout)
                 runConverter()
             }
