@@ -74,6 +74,20 @@ CurrencyKonverter(
 The third field of the CurrencyField is optional, so you can use something like: `CurrencyField(editText1, 2.0)`
 You can even change the place decimal precision using the `CurrencyKonverter` variable `decimalPlaces` integer any time.
 
+### Backend conversion between two fields
+
+You can also also get your conversion rule from the backend, sending the content from the field when the text is changed and waiting for the response.
+This will handle [![debouncing and throttling](https://www.telerik.com/blogs/debouncing-and-throttling-in-javascript) for you.
+
+```kotlin
+val asyncFieldConv = AsyncFieldKonverter(
+    field1, field2,
+    debounceTimeout = 500L, // this is in milliseconds
+    beforeDebounce = { _ -> runLoading() }, //run when the user change the field, like a loading
+    callback = callback()) //where do you will run the requests (it is suspend function)
+```
+
+
 ## 📦 Installation
 
 #### Step 1. Add the JitPack repository to your project build file 
