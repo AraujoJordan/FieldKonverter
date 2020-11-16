@@ -1,5 +1,5 @@
 # FieldKonverter
-**An easy Android Edit Text conversor that prevent loops made with Kotlin**
+**An easy Android Edit Text converter that prevent loops made with Kotlin**
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8396de7bdd2d48abaf17f17ead8ebe75)](https://app.codacy.com/manual/AraujoJordan/FieldKonverter?utm_source=github.com&utm_medium=referral&utm_content=AraujoJordan/FieldKonverter&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonverter.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonverter)
