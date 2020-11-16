@@ -1,5 +1,5 @@
 # FieldKonverter
-**An easy Android Edit Text conversor that prevent loops made with Kotlin**
+**An easy Android Edit Text converter that prevent loops made with Kotlin**
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8396de7bdd2d48abaf17f17ead8ebe75)](https://app.codacy.com/manual/AraujoJordan/FieldKonverter?utm_source=github.com&utm_medium=referral&utm_content=AraujoJordan/FieldKonverter&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/AraujoJordan/FieldKonverter.svg?style=shield)](https://circleci.com/gh/AraujoJordan/FieldKonverter)
@@ -73,6 +73,20 @@ CurrencyKonverter(
 
 The third field of the CurrencyField is optional, so you can use something like: `CurrencyField(editText1, 2.0)`
 You can even change the place decimal precision using the `CurrencyKonverter` variable `decimalPlaces` integer any time.
+
+### Backend conversion between two fields
+
+You can also also get your conversion rule from the backend, sending the content from the field when the text is changed and waiting for the response.
+This will handle [![debouncing and throttling](https://www.telerik.com/blogs/debouncing-and-throttling-in-javascript) for you.
+
+```kotlin
+val asyncFieldConv = AsyncFieldKonverter(
+    field1, field2,
+    debounceTimeout = 500L, // this is in milliseconds
+    beforeDebounce = { _ -> runLoading() }, //run when the user change the field, like a loading
+    callback = callback()) //where do you will run the requests (it is suspend function)
+```
+
 
 ## 📦 Installation
 
